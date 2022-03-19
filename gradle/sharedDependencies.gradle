@@ -1,0 +1,12 @@
+dependencies {
+//    implementation library.org_slf4j_slf4j_api
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+
+    testImplementation library.org_junit_jupiter_junit_jupiter_api
+    testImplementation library.org_junit_jupiter_junit_jupiter_engine
+    testImplementation library.org_mockito_mockito_junit_jupiter
+    testImplementation library.org_mockito_mockito_core
+    testImplementation library.org_apache_commons_commons_lang3
+    testImplementation library.org_hamcrest_hamcrest_core
+    testImplementation library.org_hamcrest_hamcrest_all
+}

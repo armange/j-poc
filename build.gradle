@@ -1,0 +1,32 @@
+plugins {
+    id "io.freefair.lombok" version "5.3.0"
+    id "java-library"
+    id 'maven-publish'
+    id 'java-test-fixtures'
+}
+
+allprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'io.freefair.lombok'
+    apply plugin: 'maven-publish'
+    apply plugin: 'java-test-fixtures'
+
+    group = 'br.com.armange'
+    // The version 11 is LTS
+    sourceCompatibility = 11
+
+    apply from: "$rootDir/gradle/env.gradle"
+    apply from: "$rootDir/gradle/library.gradle"
+    apply from: "$rootDir/gradle/projects.gradle"
+    apply from: "$rootDir/gradle/repositories.gradle"
+    apply from: "$rootDir/gradle/sharedDependencies.gradle"
+}
+
+subprojects {
+    apply from: "$rootDir/gradle/configuration.gradle"
+    apply from: "$rootDir/gradle/source-sets.gradle"
+    apply from: "$rootDir/gradle/$name/dependencies.gradle"
+    apply from: "$rootDir/gradle/test.gradle"
+    apply from: "$rootDir/gradle/jar.gradle"
+    apply from: "$rootDir/gradle/publishing.gradle"
+}

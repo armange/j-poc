@@ -1,0 +1,17 @@
+configurations {
+    //Enable provided scope
+    provided
+}
+
+configurations.all {
+    resolutionStrategy {
+        //Avoid library version conflict
+        failOnVersionConflict()
+
+        //Force the use of the declared library
+        force library.values()
+
+        //Avoid cache replaced library
+        cacheChangingModulesFor 0, 'seconds'
+    }
+}
