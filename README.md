@@ -1,1 +1,1 @@
-# poc
+# Placeholder for proof-of-concept projects.
