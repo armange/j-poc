@@ -8,7 +8,7 @@ import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class App {
+public class Csv2XmlApp {
     public static void main(String[] args) {
         // Spring Java config
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
@@ -17,7 +17,7 @@ public class App {
         context.refresh();
 
         JobLauncher jobLauncher = (JobLauncher) context.getBean("jobLauncher");
-        Job job = (Job) context.getBean("firstBatchJob");
+        Job job = (Job) context.getBean("csv2Xml");
         System.out.println("Starting the batch job");
         try {
             JobExecution execution = jobLauncher.run(job, new JobParameters());

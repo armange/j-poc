@@ -1,8 +1,8 @@
 package br.com.armange.jpoc.spring.batch.configuration;
 
-import br.com.armange.jpoc.spring.batch.configuration.domain.dto.TransactionDto;
-import br.com.armange.jpoc.spring.batch.processing.CustomItemProcessor;
-import br.com.armange.jpoc.spring.batch.processing.RecordFieldSetMapper;
+import br.com.armange.jpoc.spring.batch.domain.dto.TransactionDto;
+import br.com.armange.jpoc.spring.batch.processing.Csv2XmlItemProcessor;
+import br.com.armange.jpoc.spring.batch.mapper.RecordFieldSetMapper;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -43,6 +43,7 @@ public class Csv2XmlBatchConfig {
         DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
         String[] tokens = { "username", "userid", "transactiondate", "amount" };
         tokenizer.setNames(tokens);
+        reader.setLinesToSkip(1);
         reader.setResource(inputCsv);
         DefaultLineMapper<TransactionDto> lineMapper =
                 new DefaultLineMapper<>();
@@ -54,7 +55,7 @@ public class Csv2XmlBatchConfig {
 
     @Bean
     public ItemProcessor<TransactionDto, TransactionDto> itemProcessor() {
-        return new CustomItemProcessor();
+        return new Csv2XmlItemProcessor();
     }
 
     @Bean
@@ -75,16 +76,16 @@ public class Csv2XmlBatchConfig {
         return marshaller;
     }
 
-    @Bean
+    @Bean("csv2Xml-unique-step")
     protected Step step1(ItemReader<TransactionDto> reader,
                          ItemProcessor<TransactionDto, TransactionDto> processor,
                          ItemWriter<TransactionDto> writer) {
-        return steps.get("step1").<TransactionDto, TransactionDto> chunk(10)
+        return steps.get("csv2Xml-unique-step").<TransactionDto, TransactionDto> chunk(10)
                 .reader(reader).processor(processor).writer(writer).build();
     }
 
-    @Bean(name = "firstBatchJob")
-    public Job job(@Qualifier("step1") Step step1) {
-        return jobs.get("firstBatchJob").start(step1).build();
+    @Bean(name = "csv2Xml")
+    public Job job(@Qualifier("csv2Xml-unique-step") Step step1) {
+        return jobs.get("csv2Xml").start(step1).build();
     }
 }

@@ -1,6 +1,6 @@
-package br.com.armange.jpoc.spring.batch.processing;
+package br.com.armange.jpoc.spring.batch.mapper;
 
-import br.com.armange.jpoc.spring.batch.configuration.domain.dto.TransactionDto;
+import br.com.armange.jpoc.spring.batch.domain.dto.TransactionDto;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.validation.BindException;

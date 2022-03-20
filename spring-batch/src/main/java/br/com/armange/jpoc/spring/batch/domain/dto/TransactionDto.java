@@ -1,6 +1,7 @@
-package br.com.armange.jpoc.spring.batch.configuration.domain.dto;
+package br.com.armange.jpoc.spring.batch.domain.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDateTime;
@@ -8,11 +9,17 @@ import java.time.LocalDateTime;
 @SuppressWarnings("restriction")
 @XmlRootElement(name = "transactionRecord")
 @Data
+@NoArgsConstructor
 public class TransactionDto {
+
     private String username;
     private int userId;
     private LocalDateTime transactionDate;
     private double amount;
+
+    public TransactionDto(final int userId) {
+        setUserId(userId);
+    }
 
     @Override
     public String toString() {
