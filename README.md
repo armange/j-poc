@@ -1,1 +1,1 @@
-# poc
+# Repository reserved for proof-of-concept projects, tests and samples.

@@ -6,7 +6,7 @@ configurations {
 configurations.all {
     resolutionStrategy {
         //Avoid library version conflict
-        failOnVersionConflict()
+//        failOnVersionConflict()
 
         //Force the use of the declared library
         force library.values()
