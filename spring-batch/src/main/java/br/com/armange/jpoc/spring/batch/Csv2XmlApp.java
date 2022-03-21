@@ -10,20 +10,23 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class Csv2XmlApp {
     public static void main(String[] args) {
-        // Spring Java config
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+
         context.register(CentralConfiguration.class);
         context.register(Csv2XmlBatchConfig.class);
         context.refresh();
 
-        JobLauncher jobLauncher = (JobLauncher) context.getBean("jobLauncher");
-        Job job = (Job) context.getBean("csv2Xml");
+        final JobLauncher jobLauncher = (JobLauncher) context.getBean("jobLauncher");
+        final Job job = (Job) context.getBean("csv2Xml");
+
         System.out.println("Starting the batch job");
+
         try {
-            JobExecution execution = jobLauncher.run(job, new JobParameters());
+            final JobExecution execution = jobLauncher.run(job, new JobParameters());
+
             System.out.println("Job Status : " + execution.getStatus());
             System.out.println("Job completed");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             System.out.println("Job failed");
         }

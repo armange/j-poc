@@ -10,20 +10,23 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class Dto2DtoApp {
     public static void main(String[] args) {
-        // Spring Java config
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+
         context.register(CentralConfiguration.class);
         context.register(DtoMultiThread2DtoConfig.class);
         context.refresh();
 
-        JobLauncher jobLauncher = (JobLauncher) context.getBean("jobLauncher");
-        Job job = (Job) context.getBean("dto2Dto-job");
+        final JobLauncher jobLauncher = (JobLauncher) context.getBean("jobLauncher");
+        final Job job = (Job) context.getBean("dto2Dto-job");
+
         System.out.println("Starting the batch job");
+
         try {
-            JobExecution execution = jobLauncher.run(job, new JobParameters());
+            final JobExecution execution = jobLauncher.run(job, new JobParameters());
+
             System.out.println("Job Status : " + execution.getStatus());
             System.out.println("Job completed");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             System.out.println("Job failed");
         }

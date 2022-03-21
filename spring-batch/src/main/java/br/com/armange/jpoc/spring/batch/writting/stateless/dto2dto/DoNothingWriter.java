@@ -1,4 +1,4 @@
-package br.com.armange.jpoc.spring.batch.writting.stateful.dto2dto;
+package br.com.armange.jpoc.spring.batch.writting.stateless.dto2dto;
 
 import br.com.armange.jpoc.spring.batch.domain.dto.IdWrapperDto;
 import org.springframework.batch.item.ItemWriter;

@@ -1,3 +1,4 @@
-rootProject.name = 'poc'
+rootProject.name = 'j-poc'
 include(
-    'spring-batch')
+    'spring-batch',
+    'spring-batch-manager-worker')

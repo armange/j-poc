@@ -1,0 +1,8 @@
+dependencies {
+    implementation library.org_xerial_sqlite_jdbc
+    implementation library.org_springframework_spring_oxm
+    implementation library.org_springframework_spring_jdbc
+    implementation library.org_springframework_batch_spring_batch_core
+    api library.jakarta_xml_bind_jakarta_xml_bind_api
+    api library.org_glassfish_jaxb_jaxb_runtime
+}
