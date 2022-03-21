@@ -1,7 +1,7 @@
 package br.com.armange.jpoc.spring.batch.configuration;
 
 import br.com.armange.jpoc.spring.batch.domain.dto.TransactionDto;
-import br.com.armange.jpoc.spring.batch.processing.Csv2XmlItemProcessor;
+import br.com.armange.jpoc.spring.batch.processing.csv2xml.Csv2XmlUniqueStep;
 import br.com.armange.jpoc.spring.batch.mapper.RecordFieldSetMapper;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -55,7 +55,7 @@ public class Csv2XmlBatchConfig {
 
     @Bean
     public ItemProcessor<TransactionDto, TransactionDto> itemProcessor() {
-        return new Csv2XmlItemProcessor();
+        return new Csv2XmlUniqueStep();
     }
 
     @Bean
