@@ -1,7 +1,14 @@
 package br.com.armange.jpoc.spring.batch.configuration.worker;
 
+import br.com.armange.jpoc.spring.batch.configuration.ActiveMqAppProperties;
 import br.com.armange.jpoc.spring.batch.configuration.AppProperties;
+import br.com.armange.jpoc.spring.batch.configuration.RabbitMqAppProperties;
+import br.com.armange.jpoc.spring.batch.configuration.annotation.OnActiveMQ;
+import br.com.armange.jpoc.spring.batch.configuration.annotation.OnRabbitMQ;
+import br.com.armange.jpoc.spring.batch.configuration.condition.ActiveMQCondition;
+import br.com.armange.jpoc.spring.batch.configuration.condition.RabbitMQCondition;
 import br.com.armange.jpoc.spring.batch.util.thread.ContextThreadHolder;
+import com.rabbitmq.jms.admin.RMQConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -26,19 +33,63 @@ import java.util.List;
 @EnableBatchIntegration
 @EnableIntegration
 @PropertySource("classpath:application.properties")
+@PropertySource("classpath:application-rabbitmq.properties")
+@PropertySource("classpath:application-activemq.properties")
 public class WorkerConfiguration {
 
     @Bean
-    public ActiveMQConnectionFactory connectionFactory(final AppProperties appProperties) {
+    public RabbitMQCondition rabbitMQCondition() {
+        return new RabbitMQCondition();
+    }
+
+    @Bean
+    public ActiveMQCondition activeMQCondition() {
+        return new ActiveMQCondition();
+    }
+
+
+    @Bean
+    public AppProperties appProperties() {
+        return new AppProperties();
+    }
+
+    @Bean
+    @OnActiveMQ
+    public ActiveMqAppProperties activeMqAppProperties() {
+        return new ActiveMqAppProperties();
+    }
+
+    @Bean
+    @OnRabbitMQ
+    public RabbitMqAppProperties rabbitMqAppProperties() {
+        return new RabbitMqAppProperties();
+    }
+
+    @Bean
+    @OnRabbitMQ
+    public javax.jms.ConnectionFactory rmqConnectionFactory(final RabbitMqAppProperties appProperties) {
+        final RMQConnectionFactory connectionFactory = new RMQConnectionFactory();
+
+        connectionFactory.setUsername(appProperties.getRabbitMqUser());
+        connectionFactory.setPassword(appProperties.getRabbitMqPassword());
+        connectionFactory.setHost(appProperties.getRabbitMqHost());
+        connectionFactory.setPort(appProperties.getRabbitMqPort());
+
+        return connectionFactory;
+    }
+
+    @Bean
+    @OnActiveMQ
+    public javax.jms.ConnectionFactory activeMqConnectionFactory(final ActiveMqAppProperties appProperties) {
         final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
 
-        connectionFactory.setBrokerURL(appProperties.getBrokerUrl());
+        connectionFactory.setBrokerURL(appProperties.getActiveMqUrl());
         connectionFactory.setTrustedPackages(List.of("br.com.armange",
                 "org.springframework.batch",
                 "java.util",
                 "java.lang"));
-        connectionFactory.setUserName("user-amq");
-        connectionFactory.setPassword("password-amq");
+        connectionFactory.setUserName(appProperties.getActiveMqUser());
+        connectionFactory.setPassword(appProperties.getActiveMqPassword());
 
         return connectionFactory;
     }
@@ -50,7 +101,7 @@ public class WorkerConfiguration {
 
     @Bean
     public IntegrationFlow inboundFlow(
-            final ActiveMQConnectionFactory connectionFactory,
+            final javax.jms.ConnectionFactory connectionFactory,
             final DirectChannel requests) {
         return IntegrationFlows
                 .from(Jms.messageDrivenChannelAdapter(connectionFactory).destination("requests"))
@@ -65,7 +116,7 @@ public class WorkerConfiguration {
 
     @Bean
     public IntegrationFlow outboundFlow(
-            final ActiveMQConnectionFactory connectionFactory,
+            final javax.jms.ConnectionFactory connectionFactory,
             final DirectChannel replies) {
         return IntegrationFlows
                 .from(replies)
