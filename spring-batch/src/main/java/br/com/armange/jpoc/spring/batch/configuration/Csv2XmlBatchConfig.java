@@ -1,8 +1,8 @@
 package br.com.armange.jpoc.spring.batch.configuration;
 
 import br.com.armange.jpoc.spring.batch.domain.dto.TransactionDto;
-import br.com.armange.jpoc.spring.batch.processing.csv2xml.Csv2XmlUniqueStep;
 import br.com.armange.jpoc.spring.batch.mapper.RecordFieldSetMapper;
+import br.com.armange.jpoc.spring.batch.processing.csv2xml.Csv2XmlUniqueStep;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -19,8 +19,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
-
-import java.net.MalformedURLException;
 
 public class Csv2XmlBatchConfig {
 
@@ -61,8 +59,7 @@ public class Csv2XmlBatchConfig {
     }
 
     @Bean
-    public ItemWriter<TransactionDto> itemWriter(
-            final Marshaller marshaller) throws MalformedURLException {
+    public ItemWriter<TransactionDto> itemWriter(final Marshaller marshaller) {
         final StaxEventItemWriter<TransactionDto> itemWriter = new StaxEventItemWriter<>();
 
         itemWriter.setMarshaller(marshaller);
@@ -76,13 +73,13 @@ public class Csv2XmlBatchConfig {
     public Marshaller marshaller() {
         final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
 
-        marshaller.setClassesToBeBound(new Class[] { TransactionDto.class });
+        marshaller.setClassesToBeBound(TransactionDto.class);
 
         return marshaller;
     }
 
     @Bean("csv2Xml-unique-step")
-    protected Step step1(final ItemReader<TransactionDto> reader,
+    protected Step uniqueStep(final ItemReader<TransactionDto> reader,
                          final ItemProcessor<TransactionDto, TransactionDto> processor,
                          final ItemWriter<TransactionDto> writer) {
         return steps.get("csv2Xml-unique-step")
