@@ -1,16 +1,13 @@
-//**Not applied for this project.**
-//task javadocJar(type: Jar) {
-//    from javadoc
-//    archiveClassifier = 'javadoc'
-//}
+task javadocJar(type: Jar) {
+    from javadoc
+    archiveClassifier = 'javadoc'
+}
 
-//**Not applied for this project.**
-//task sourcesJar(type: Jar, dependsOn: classes) {
-//    from sourceSets.main.allSource
-//    archiveClassifier = 'sources'
-//}
+task sourcesJar(type: Jar, dependsOn: classes) {
+    from sourceSets.main.allSource
+    archiveClassifier = 'sources'
+}
 
-//**Not applied for this project.**
-//artifacts {
-//    archives javadocJar, sourcesJar
-//}
+artifacts {
+    archives javadocJar, sourcesJar
+}

@@ -19,6 +19,7 @@ allprojects {
     apply from: "$rootDir/gradle/library.gradle"
     apply from: "$rootDir/gradle/projects.gradle"
     apply from: "$rootDir/gradle/repositories.gradle"
+    apply from: "$rootDir/gradle/custom-projects.gradle"
     apply from: "$rootDir/gradle/sharedDependencies.gradle"
 }
 
