@@ -17,12 +17,14 @@ import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.jms.dsl.Jms;
 
+import java.util.List;
+
 @Slf4j
 @Configuration
 @EnableBatchProcessing
 @EnableBatchIntegration
 @EnableIntegration
-@PropertySource("classpath:csv2xml.properties")
+@PropertySource("classpath:application.properties")
 public class WorkerConfiguration {
 
     @Bean
@@ -31,45 +33,39 @@ public class WorkerConfiguration {
             final String brokerUrl) {
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
         connectionFactory.setBrokerURL(brokerUrl);
-        connectionFactory.setTrustAllPackages(true);
+        connectionFactory.setTrustedPackages(List.of("br.com.armange",
+                "org.springframework.batch",
+                "java.util",
+                "java.lang"));
         return connectionFactory;
     }
 
-    /*
-     * Configure inbound flow (requests coming from the master)
-     */
     @Bean
     public DirectChannel requests() {
         return new DirectChannel();
     }
 
     @Bean
-    public IntegrationFlow inboundFlow(ActiveMQConnectionFactory connectionFactory) {
+    public IntegrationFlow inboundFlow(final ActiveMQConnectionFactory connectionFactory) {
         return IntegrationFlows
                 .from(Jms.messageDrivenChannelAdapter(connectionFactory).destination("requests"))
                 .channel(requests())
                 .get();
     }
 
-    /*
-     * Configure outbound flow (replies going to the master)
-     */
     @Bean
     public DirectChannel replies() {
         return new DirectChannel();
     }
 
     @Bean
-    public IntegrationFlow outboundFlow(ActiveMQConnectionFactory connectionFactory) {
+    public IntegrationFlow outboundFlow(final ActiveMQConnectionFactory connectionFactory) {
         return IntegrationFlows
                 .from(replies())
                 .handle(Jms.outboundAdapter(connectionFactory).destination("replies"))
                 .get();
     }
 
-    /*
-     * Configure worker components
-     */
     @Bean
     public ItemProcessor<Integer, Integer> itemProcessor() {
         return item -> {

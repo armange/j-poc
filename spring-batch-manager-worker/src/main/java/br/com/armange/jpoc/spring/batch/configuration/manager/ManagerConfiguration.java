@@ -8,7 +8,6 @@ import org.springframework.batch.core.step.tasklet.TaskletStep;
 import org.springframework.batch.integration.chunk.RemoteChunkingManagerStepBuilderFactory;
 import org.springframework.batch.integration.config.annotation.EnableBatchIntegration;
 import org.springframework.batch.item.support.ListItemReader;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,12 +20,13 @@ import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.jms.dsl.Jms;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableBatchProcessing
 @EnableBatchIntegration
 @EnableIntegration
-@PropertySource("classpath:csv2xml.properties")
+@PropertySource("classpath:application.properties")
 public class ManagerConfiguration {
 
     @Bean
@@ -36,7 +36,10 @@ public class ManagerConfiguration {
         final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
 
         connectionFactory.setBrokerURL(brokerUrl);
-        connectionFactory.setTrustAllPackages(true);
+        connectionFactory.setTrustedPackages(List.of("br.com.armange",
+                "org.springframework.batch",
+                "java.util",
+                "java.lang"));
 
         return connectionFactory;
     }
