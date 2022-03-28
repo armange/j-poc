@@ -1,6 +1,12 @@
 package br.com.armange.jpoc.spring.batch.configuration.manager;
 
-import br.com.armange.jpoc.spring.batch.configuration.AppProperties;
+import br.com.armange.jpoc.spring.batch.configuration.ActiveMqAppProperties;
+import br.com.armange.jpoc.spring.batch.configuration.RabbitMqAppProperties;
+import br.com.armange.jpoc.spring.batch.configuration.annotation.OnActiveMQ;
+import br.com.armange.jpoc.spring.batch.configuration.annotation.OnRabbitMQ;
+import br.com.armange.jpoc.spring.batch.configuration.condition.ActiveMQCondition;
+import br.com.armange.jpoc.spring.batch.configuration.condition.RabbitMQCondition;
+import com.rabbitmq.jms.admin.RMQConnectionFactory;
 import lombok.RequiredArgsConstructor;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.batch.core.Job;
@@ -28,6 +34,8 @@ import java.util.List;
 @EnableBatchIntegration
 @EnableIntegration
 @PropertySource("classpath:application.properties")
+@PropertySource("classpath:application-rabbitmq.properties")
+@PropertySource("classpath:application-activemq.properties")
 @RequiredArgsConstructor
 public class ManagerConfiguration {
 
@@ -35,16 +43,52 @@ public class ManagerConfiguration {
     private final RemoteChunkingManagerStepBuilderFactory managerStepBuilderFactory;
 
     @Bean
-    public ActiveMQConnectionFactory connectionFactory(final AppProperties appProperties) {
+    public RabbitMQCondition rabbitMQCondition() {
+        return new RabbitMQCondition();
+    }
+
+    @Bean
+    public ActiveMQCondition activeMQCondition() {
+        return new ActiveMQCondition();
+    }
+
+    @Bean
+    @OnActiveMQ
+    public ActiveMqAppProperties activeMqAppProperties() {
+        return new ActiveMqAppProperties();
+    }
+
+    @Bean
+    @OnRabbitMQ
+    public RabbitMqAppProperties rabbitMqAppProperties() {
+        return new RabbitMqAppProperties();
+    }
+
+    @Bean
+    @OnRabbitMQ
+    public javax.jms.ConnectionFactory rmqConnectionFactory(final RabbitMqAppProperties appProperties) {
+        final RMQConnectionFactory connectionFactory = new RMQConnectionFactory();
+
+        connectionFactory.setUsername(appProperties.getRabbitMqUser());
+        connectionFactory.setPassword(appProperties.getRabbitMqPassword());
+        connectionFactory.setHost(appProperties.getRabbitMqHost());
+        connectionFactory.setPort(appProperties.getRabbitMqPort());
+
+        return connectionFactory;
+    }
+
+    @Bean
+    @OnActiveMQ
+    public javax.jms.ConnectionFactory activeMqConnectionFactory(final ActiveMqAppProperties appProperties) {
         final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
 
-        connectionFactory.setBrokerURL(appProperties.getBrokerUrl());
+        connectionFactory.setBrokerURL(appProperties.getActiveMqUrl());
         connectionFactory.setTrustedPackages(List.of("br.com.armange",
                 "org.springframework.batch",
                 "java.util",
                 "java.lang"));
-        connectionFactory.setUserName("user-amq");
-        connectionFactory.setPassword("password-amq");
+        connectionFactory.setUserName(appProperties.getActiveMqUser());
+        connectionFactory.setPassword(appProperties.getActiveMqPassword());
 
         return connectionFactory;
     }
@@ -56,7 +100,7 @@ public class ManagerConfiguration {
 
     @Bean
     public IntegrationFlow outboundFlow(
-            final ActiveMQConnectionFactory connectionFactory,
+            final javax.jms.ConnectionFactory connectionFactory,
             final DirectChannel requests) {
         return IntegrationFlows
                 .from(requests)
@@ -70,7 +114,7 @@ public class ManagerConfiguration {
     }
 
     @Bean
-    public IntegrationFlow inboundFlow(final ActiveMQConnectionFactory connectionFactory) {
+    public IntegrationFlow inboundFlow(final javax.jms.ConnectionFactory connectionFactory) {
         return IntegrationFlows
                 .from(Jms.messageDrivenChannelAdapter(connectionFactory).destination("replies"))
                 .channel(replies())

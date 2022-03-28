@@ -56,20 +56,13 @@ ext.library = [
     org_glassfish_jaxb_jaxb_runtime: "org.glassfish.jaxb:jaxb-runtime:${JAXB_API_VERSION}",
 
     // spring-batch-manager-worker
-    //org_apache_activemq_apache_artemis: "org.apache.activemq:apache-artemis:${ORG_APACHE_ACTIVEMQ}",
-    //org_apache_activemq_activemq_spring: "org.apache.activemq:activemq-spring:${ORG_APACHE_ACTIVEMQ}",
-    //org_apache_activemq_artemis_server: "org.apache.activemq:artemis-server:${ORG_APACHE_ACTIVEMQ}",
     org_apache_activemq_activemq_client: "org.apache.activemq:activemq-client:${ORG_APACHE_ACTIVEMQ}",
     org_apache_activemq_activemq_broker: "org.apache.activemq:activemq-broker:${ORG_APACHE_ACTIVEMQ}",
-    //org_apache_activemq_artemis_jakarta_client: "org.apache.activemq:artemis-jakarta-client:${ORG_APACHE_ACTIVEMQ}",
-    //jakarta_jms_jakarta_jms_api: "jakarta.jms:jakarta.jms-api:${JAKARTA_JMS}",
     org_apache_activemq_activemq_kahadb_store: "org.apache.activemq:activemq-kahadb-store:${ORG_APACHE_ACTIVEMQ}",
 
     org_springframework_batch_spring_batch_integration: "org.springframework.batch:spring-batch-integration:${ORG_SPRINGFRAMEWORK_BATCH}",
     org_springframework_batch_spring_batch_test: "org.springframework.batch:spring-batch-test:${ORG_SPRINGFRAMEWORK_BATCH}",
-    //org_springframework_integration_spring_integration_core: "org.springframework.integration:spring-integration-core:${ORG_SPRINGFRAMEWORK_INTEGRATION}",
     org_springframework_integration_spring_integration_jms: "org.springframework.integration:spring-integration-jms:${ORG_SPRINGFRAMEWORK_INTEGRATION}",
-    //org_springframework_integration_spring_integration_amqp: "org.springframework.integration:spring-integration-amqp:${ORG_SPRINGFRAMEWORK_INTEGRATION}",
-
-//    implementation 'com.rabbitmq:amqp-client:5.14.2'
+    com_rabbitmq_amqp_client: "com.rabbitmq:amqp-client:5.14.2",
+    com_rabbitmq_jms_rabbitmq_jms: "com.rabbitmq.jms:rabbitmq-jms:2.4.0"
 ]

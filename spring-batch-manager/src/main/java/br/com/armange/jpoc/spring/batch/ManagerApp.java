@@ -1,6 +1,5 @@
 package br.com.armange.jpoc.spring.batch;
 
-import br.com.armange.jpoc.spring.batch.configuration.AppProperties;
 import br.com.armange.jpoc.spring.batch.configuration.manager.ManagerConfiguration;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,7 @@ public class ManagerApp {
 
     public static void main(final String[] args) {
         final AnnotationConfigApplicationContext context =
-                new AnnotationConfigApplicationContext(AppProperties.class, ManagerConfiguration.class);
+                new AnnotationConfigApplicationContext(ManagerConfiguration.class);
 
         final JobLauncher jobLauncher = (JobLauncher) context.getBean("jobLauncher");
         final Job job = (Job) context.getBean("remoteChunkingJob");
