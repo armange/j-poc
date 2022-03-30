@@ -1,11 +1,9 @@
-package br.com.armange.jpoc.spring.batch.configuration.manager;
+package br.com.armange.jpoc.spring.batch.manager.configuration;
 
-import br.com.armange.jpoc.spring.batch.configuration.ActiveMqAppProperties;
-import br.com.armange.jpoc.spring.batch.configuration.RabbitMqAppProperties;
-import br.com.armange.jpoc.spring.batch.configuration.annotation.OnActiveMQ;
-import br.com.armange.jpoc.spring.batch.configuration.annotation.OnRabbitMQ;
-import br.com.armange.jpoc.spring.batch.configuration.condition.ActiveMQCondition;
-import br.com.armange.jpoc.spring.batch.configuration.condition.RabbitMQCondition;
+import br.com.armange.jpoc.spring.batch.manager.configuration.annotation.OnActiveMQ;
+import br.com.armange.jpoc.spring.batch.manager.configuration.annotation.OnRabbitMQ;
+import br.com.armange.jpoc.spring.batch.manager.configuration.condition.ActiveMQCondition;
+import br.com.armange.jpoc.spring.batch.manager.configuration.condition.RabbitMQCondition;
 import com.rabbitmq.jms.admin.RMQConnectionFactory;
 import lombok.RequiredArgsConstructor;
 import org.apache.activemq.ActiveMQConnectionFactory;

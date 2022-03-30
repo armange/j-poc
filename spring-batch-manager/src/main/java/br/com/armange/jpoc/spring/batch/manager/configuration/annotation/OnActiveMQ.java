@@ -1,6 +1,6 @@
-package br.com.armange.jpoc.spring.batch.configuration.annotation;
+package br.com.armange.jpoc.spring.batch.manager.configuration.annotation;
 
-import br.com.armange.jpoc.spring.batch.configuration.condition.ActiveMQCondition;
+import br.com.armange.jpoc.spring.batch.manager.configuration.condition.ActiveMQCondition;
 import org.springframework.context.annotation.Conditional;
 
 import java.lang.annotation.*;

@@ -1,6 +1,6 @@
-package br.com.armange.jpoc.spring.batch;
+package br.com.armange.jpoc.spring.batch.manager;
 
-import br.com.armange.jpoc.spring.batch.configuration.manager.ManagerConfiguration;
+import br.com.armange.jpoc.spring.batch.manager.configuration.ManagerConfiguration;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +24,7 @@ public class ManagerApp {
         log.info("Starting the batch job");
 
         try {
+            log.info("Manager started successfully.");
             final JobExecution execution = jobLauncher.run(job, new JobParameters());
 
             log.info("Job Status: {}.", execution.getStatus());
