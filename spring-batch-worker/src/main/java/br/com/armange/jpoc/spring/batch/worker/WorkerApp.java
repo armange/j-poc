@@ -1,12 +1,14 @@
-package br.com.armange.jpoc.spring.batch;
+package br.com.armange.jpoc.spring.batch.worker;
 
-import br.com.armange.jpoc.spring.batch.configuration.AppProperties;
-import br.com.armange.jpoc.spring.batch.configuration.worker.WorkerConfiguration;
-import br.com.armange.jpoc.spring.batch.util.thread.ContextThreadHolder;
+import br.com.armange.jpoc.spring.batch.worker.configuration.AppProperties;
+import br.com.armange.jpoc.spring.batch.worker.configuration.WorkerConfiguration;
+import br.com.armange.jpoc.spring.batch.worker.util.thread.ContextThreadHolder;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+@Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WorkerApp {
 
@@ -21,5 +23,7 @@ public class WorkerApp {
             context.stop();
             context.close();
         });
+
+        log.info("Manager started successfully.");
     }
 }

@@ -1,13 +1,13 @@
-package br.com.armange.jpoc.spring.batch.configuration.worker;
+package br.com.armange.jpoc.spring.batch.worker.configuration;
 
-import br.com.armange.jpoc.spring.batch.configuration.ActiveMqAppProperties;
-import br.com.armange.jpoc.spring.batch.configuration.AppProperties;
-import br.com.armange.jpoc.spring.batch.configuration.RabbitMqAppProperties;
-import br.com.armange.jpoc.spring.batch.configuration.annotation.OnActiveMQ;
-import br.com.armange.jpoc.spring.batch.configuration.annotation.OnRabbitMQ;
-import br.com.armange.jpoc.spring.batch.configuration.condition.ActiveMQCondition;
-import br.com.armange.jpoc.spring.batch.configuration.condition.RabbitMQCondition;
-import br.com.armange.jpoc.spring.batch.util.thread.ContextThreadHolder;
+import br.com.armange.jpoc.spring.batch.worker.configuration.ActiveMqAppProperties;
+import br.com.armange.jpoc.spring.batch.worker.configuration.AppProperties;
+import br.com.armange.jpoc.spring.batch.worker.configuration.RabbitMqAppProperties;
+import br.com.armange.jpoc.spring.batch.worker.configuration.annotation.OnActiveMQ;
+import br.com.armange.jpoc.spring.batch.worker.configuration.annotation.OnRabbitMQ;
+import br.com.armange.jpoc.spring.batch.worker.configuration.condition.ActiveMQCondition;
+import br.com.armange.jpoc.spring.batch.worker.configuration.condition.RabbitMQCondition;
+import br.com.armange.jpoc.spring.batch.worker.util.thread.ContextThreadHolder;
 import com.rabbitmq.jms.admin.RMQConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -16,6 +16,7 @@ import org.springframework.batch.integration.chunk.RemoteChunkingWorkerBuilder;
 import org.springframework.batch.integration.config.annotation.EnableBatchIntegration;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -25,6 +26,7 @@ import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.jms.dsl.Jms;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Slf4j
@@ -32,9 +34,9 @@ import java.util.List;
 @EnableBatchProcessing
 @EnableBatchIntegration
 @EnableIntegration
-@PropertySource("classpath:application.properties")
-@PropertySource("classpath:application-rabbitmq.properties")
-@PropertySource("classpath:application-activemq.properties")
+@PropertySource("classpath:spring-batch-worker.properties")
+@PropertySource("classpath:spring-batch-worker-rabbitmq.properties")
+@PropertySource("classpath:spring-batch-worker-activemq.properties")
 public class WorkerConfiguration {
 
     @Bean
@@ -134,10 +136,17 @@ public class WorkerConfiguration {
     }
 
     @Bean
-    public ItemWriter<Integer> itemWriter() {
+    @Qualifier("memory")
+    public List<Integer> memory() {
+        return new LinkedList<>();
+    }
+
+    @Bean
+    public ItemWriter<Integer> itemWriter(@Qualifier("memory") final List<Integer> memory) {
         return items -> {
             for (final Integer item : items) {
                 log.info("Writing item {}.", item);
+                memory.add(item);
 
                 if (item == -1) {
                     ContextThreadHolder.setHold(false);

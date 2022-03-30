@@ -15,7 +15,8 @@ def
         ORG_SPRINGFRAMEWORK = '5.3.16',
         //ORG_SPRINGFRAMEWORK_BOOT = '2.+',
         ORG_SPRINGFRAMEWORK_BATCH = '4.3.5',
-        ORG_SPRINGFRAMEWORK_INTEGRATION = '5.4.13'
+        ORG_SPRINGFRAMEWORK_INTEGRATION = '5.4.13',
+        ORG_TESTCONTAINERS = '1.16.3'
 
 ext.library = [
     // Tests
@@ -63,6 +64,9 @@ ext.library = [
     org_springframework_batch_spring_batch_integration: "org.springframework.batch:spring-batch-integration:${ORG_SPRINGFRAMEWORK_BATCH}",
     org_springframework_batch_spring_batch_test: "org.springframework.batch:spring-batch-test:${ORG_SPRINGFRAMEWORK_BATCH}",
     org_springframework_integration_spring_integration_jms: "org.springframework.integration:spring-integration-jms:${ORG_SPRINGFRAMEWORK_INTEGRATION}",
-    com_rabbitmq_amqp_client: "com.rabbitmq:amqp-client:5.14.2",
-    com_rabbitmq_jms_rabbitmq_jms: "com.rabbitmq.jms:rabbitmq-jms:2.4.0"
+//    com_rabbitmq_amqp_client: "com.rabbitmq:amqp-client:5.14.2",
+    com_rabbitmq_jms_rabbitmq_jms: "com.rabbitmq.jms:rabbitmq-jms:2.4.0",
+
+    org_testcontainers_testcontainers: "org.testcontainers:testcontainers:${ORG_TESTCONTAINERS}",
+    org_testcontainers_junit_jupiter: "org.testcontainers:junit-jupiter:${ORG_TESTCONTAINERS}"
 ]

@@ -1,4 +1,4 @@
-package br.com.armange.jpoc.spring.batch.configuration;
+package br.com.armange.jpoc.spring.batch.worker.configuration;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

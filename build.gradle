@@ -31,5 +31,6 @@ subprojects {
     apply from: "$rootDir/gradle/$name/dependencies.gradle"
     apply from: "$rootDir/gradle/test.gradle"
     apply from: "$rootDir/gradle/jar.gradle"
+    apply from: "$rootDir/gradle/docker.gradle"
     apply from: "$rootDir/gradle/publishing.gradle"
 }

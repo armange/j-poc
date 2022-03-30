@@ -1,4 +1,4 @@
-package br.com.armange.jpoc.spring.batch.util.thread;
+package br.com.armange.jpoc.spring.batch.worker.util.thread;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

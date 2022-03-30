@@ -1,0 +1,14 @@
+FROM openjdk:11
+MAINTAINER Diego Armange Costa <diego.armange.costa@gmail.com>
+
+ENV WORKDIR /opt/app
+
+WORKDIR $WORKDIR/
+
+ARG ARG_JAR_NAME
+
+ENV JAR_NAME=${ARG_JAR_NAME}
+
+COPY $JAR_NAME $WORKDIR/
+
+ENTRYPOINT java -jar $WORKDIR/$JAR_NAME

@@ -1,7 +1,55 @@
+version = '1.0.0-SNAPSHOT'
+
 jar {
     manifest {
-        attributes 'Main-Class': 'br.com.armange.jpoc.spring.batch.App'
+        attributes 'Main-Class': 'br.com.armange.jpoc.spring.batch.worker.WorkerApp'
     }
 }
 
-version = '1.0.0-SNAPSHOT'
+allInOneJar {
+    manifest {
+        attributes 'Main-Class': 'br.com.armange.jpoc.spring.batch.worker.WorkerApp'
+    }
+}
+
+//tasks.register('copyHealthCheckShell', Copy) {
+//    from "$buildDir/../../etc/shell/app-health-check.sh"
+//    into "$buildDir/libs/"
+//}
+
+task dockerBuild(type: Exec) {
+    def
+            jarExtension = '.jar',
+            lcVersion = version.toString().toLowerCase()
+
+    dependsOn.addAll(["allInOneJar"])
+
+    workingDir "${buildDir}/"
+    commandLine 'docker', 'build',
+            '--build-arg', "ARG_JAR_NAME=$project.name--all-in-one-$version$jarExtension",
+            '-t', "diegoarmangecosta/poc:$project.name-$lcVersion",
+            '-f', "../../etc/docker/all-in-one-jar/Dockerfile", './libs'
+    doLast {
+        println "Container created!"
+    }
+}
+
+task dockerPush(type: Exec) {
+    def lcVersion = version.toString().toLowerCase()
+
+    commandLine 'docker', 'push', "diegoarmangecosta/poc:$project.name-$lcVersion"
+    doLast {
+        println "Container created!"
+    }
+}
+
+configure(dockerBuild) {
+    group = 'docker'
+    description = 'Builds docker image'
+}
+
+configure(dockerPush) {
+    group = 'docker'
+    description = 'Publishes docker image'
+}
+

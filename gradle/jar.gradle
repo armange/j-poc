@@ -11,3 +11,31 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 artifacts {
     archives javadocJar, sourcesJar
 }
+
+task allInOneJar(type: Jar) {
+    dependsOn.addAll(["compileJava", "processResources"])
+
+    archiveBaseName = "$project.name--all-in-one"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    with jar
+}
+
+configure(allInOneJar) {
+    group = 'build'
+    description = 'Generates all-in-one jar'
+}
+
+configure(sourcesJar) {
+    group = 'build'
+    description = 'Generates sources jar'
+}
+
+configure(javadocJar) {
+    group = 'build'
+    description = 'Generates javadoc jar'
+}

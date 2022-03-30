@@ -1,6 +1,6 @@
-package br.com.armange.jpoc.spring.batch.configuration.annotation;
+package br.com.armange.jpoc.spring.batch.worker.configuration.annotation;
 
-import br.com.armange.jpoc.spring.batch.configuration.condition.RabbitMQCondition;
+import br.com.armange.jpoc.spring.batch.worker.configuration.condition.RabbitMQCondition;
 import org.springframework.context.annotation.Conditional;
 
 import java.lang.annotation.*;
