@@ -1,0 +1,4 @@
+ext.customProjectContext = ["key":"value"] //
+
+//print ext.customProjectContext.keySet()
+//print ext.customProjectContext.get("key2")

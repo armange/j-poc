@@ -3,6 +3,7 @@ plugins {
     id "java-library"
     id 'maven-publish'
     id 'java-test-fixtures'
+    id 'idea'
 }
 
 allprojects {
@@ -16,9 +17,11 @@ allprojects {
     sourceCompatibility = 11
 
     apply from: "$rootDir/gradle/env.gradle"
+    apply from: "$rootDir/gradle/idea.gradle"
     apply from: "$rootDir/gradle/library.gradle"
     apply from: "$rootDir/gradle/projects.gradle"
     apply from: "$rootDir/gradle/repositories.gradle"
+    apply from: "$rootDir/gradle/custom-projects.gradle"
     apply from: "$rootDir/gradle/sharedDependencies.gradle"
 }
 
@@ -28,5 +31,6 @@ subprojects {
     apply from: "$rootDir/gradle/$name/dependencies.gradle"
     apply from: "$rootDir/gradle/test.gradle"
     apply from: "$rootDir/gradle/jar.gradle"
+    apply from: "$rootDir/gradle/docker.gradle"
     apply from: "$rootDir/gradle/publishing.gradle"
 }

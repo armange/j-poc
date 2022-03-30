@@ -9,8 +9,8 @@ import br.com.armange.jpoc.spring.batch.processing.dto2dto.Dto2DtoStep3;
 import br.com.armange.jpoc.spring.batch.processing.dto2dto.Dto2DtoStep4;
 import br.com.armange.jpoc.spring.batch.reading.stateful.dto2dto.IdDto2IdDtoReader;
 import br.com.armange.jpoc.spring.batch.reading.stateful.dto2dto.TransactionDto2IdDtoReader;
-import br.com.armange.jpoc.spring.batch.writting.stateful.dto2dto.CacheResultWriter;
-import br.com.armange.jpoc.spring.batch.writting.stateful.dto2dto.DoNothingWriter;
+import br.com.armange.jpoc.spring.batch.writting.stateless.dto2dto.CacheResultWriter;
+import br.com.armange.jpoc.spring.batch.writting.stateless.dto2dto.DoNothingWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -214,7 +214,7 @@ public class DtoMultiThread2DtoConfig {
 
     @Bean
     public ExecutionContextPromotionListener promotionListener() {
-        ExecutionContextPromotionListener listener = new ExecutionContextPromotionListener();
+        final ExecutionContextPromotionListener listener = new ExecutionContextPromotionListener();
 
         listener.setKeys(new String[] {"items"});
 

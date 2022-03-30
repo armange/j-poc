@@ -4,13 +4,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @SuppressWarnings("restriction")
 @XmlRootElement(name = "transactionRecord")
 @Data
 @NoArgsConstructor
-public class TransactionDto {
+public class TransactionDto implements Serializable {
 
     private String username;
     private int userId;

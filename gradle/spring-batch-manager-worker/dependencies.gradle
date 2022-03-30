@@ -1,0 +1,14 @@
+dependencies {
+//    implementation library.org_springframework_spring_oxm
+//    implementation library.org_springframework_spring_jdbc
+    implementation library.org_springframework_batch_spring_batch_core
+    implementation library.org_springframework_batch_spring_batch_integration
+    implementation library.org_springframework_integration_spring_integration_jms
+    implementation library.org_apache_activemq_activemq_client
+//    implementation library.org_xerial_sqlite_jdbc
+
+    //Testes
+    testImplementation library.org_apache_activemq_activemq_broker
+    testImplementation library.org_springframework_batch_spring_batch_test
+    testImplementation library.org_apache_activemq_activemq_kahadb_store
+}

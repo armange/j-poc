@@ -30,23 +30,24 @@ public class CentralConfiguration {
 
     @Bean
     public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
+
         dataSource.setDriverClassName("org.sqlite.JDBC");
         dataSource.setUrl("jdbc:sqlite:repository.sqlite");
+
         return dataSource;
     }
 
     @Bean
-    public DataSourceInitializer dataSourceInitializer(DataSource dataSource)
-            throws MalformedURLException {
-        ResourceDatabasePopulator databasePopulator =
-                new ResourceDatabasePopulator();
+    public DataSourceInitializer dataSourceInitializer(final DataSource dataSource) {
+        final ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
 
         databasePopulator.addScript(dropReopsitoryTables);
         databasePopulator.addScript(dataReopsitorySchema);
         databasePopulator.setIgnoreFailedDrops(true);
 
-        DataSourceInitializer initializer = new DataSourceInitializer();
+        final DataSourceInitializer initializer = new DataSourceInitializer();
+
         initializer.setDataSource(dataSource);
         initializer.setDatabasePopulator(databasePopulator);
 
@@ -54,10 +55,12 @@ public class CentralConfiguration {
     }
 
     private JobRepository getJobRepository() throws Exception {
-        JobRepositoryFactoryBean factory = new JobRepositoryFactoryBean();
+        final JobRepositoryFactoryBean factory = new JobRepositoryFactoryBean();
+
         factory.setDataSource(dataSource());
         factory.setTransactionManager(getTransactionManager());
         factory.afterPropertiesSet();
+
         return factory.getObject();
     }
 
@@ -66,9 +69,11 @@ public class CentralConfiguration {
     }
 
     public JobLauncher getJobLauncher() throws Exception {
-        SimpleJobLauncher jobLauncher = new SimpleJobLauncher();
+        final SimpleJobLauncher jobLauncher = new SimpleJobLauncher();
+
         jobLauncher.setJobRepository(getJobRepository());
         jobLauncher.afterPropertiesSet();
+
         return jobLauncher;
     }
 }
