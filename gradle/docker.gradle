@@ -1,0 +1,40 @@
+//tasks.register('copyHealthCheckShell', Copy) {
+//    from "$buildDir/../../etc/shell/app-health-check.sh"
+//    into "$buildDir/libs/"
+//}
+
+task dockerBuild(type: Exec) {
+    def
+            jarExtension = '.jar',
+            lcVersion = projectVersion.toString().toLowerCase()
+
+    dependsOn.addAll(["allInOneJar"])
+
+    workingDir "${buildDir}/"
+    commandLine 'docker', 'build',
+            '--build-arg', "ARG_JAR_NAME=$project.name--all-in-one-$projectVersion$jarExtension",
+            '-t', "diegoarmangecosta/poc:$project.name-$lcVersion",
+            '-f', "../../etc/docker/all-in-one-jar/Dockerfile", './libs'
+    doLast {
+        println "Container created!"
+    }
+}
+
+task dockerPush(type: Exec) {
+    def lcVersion = projectVersion.toString().toLowerCase()
+
+    commandLine 'docker', 'push', "diegoarmangecosta/poc:$project.name-$lcVersion"
+    doLast {
+        println "Container pushed!"
+    }
+}
+
+configure(dockerBuild) {
+    group = 'docker'
+    description = 'Builds docker image'
+}
+
+configure(dockerPush) {
+    group = 'docker'
+    description = 'Publishes docker image'
+}
