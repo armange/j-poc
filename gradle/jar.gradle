@@ -1,3 +1,9 @@
+jar {
+    manifest {
+        attributes 'Main-Class': "$mainClass"
+    }
+}
+
 task javadocJar(type: Jar) {
     from javadoc
     archiveClassifier = 'javadoc'
@@ -14,6 +20,10 @@ artifacts {
 
 task allInOneJar(type: Jar) {
     dependsOn.addAll(["compileJava", "processResources"])
+
+    manifest {
+        attributes 'Main-Class': "$mainClass"
+    }
 
     archiveBaseName = "$project.name--all-in-one"
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
