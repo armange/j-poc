@@ -1,0 +1,17 @@
+dependencies {
+    implementation library.org_xerial_sqlite_jdbc
+    implementation library.org_springframework_spring_oxm
+    implementation library.org_springframework_spring_jdbc
+    implementation library.org_springframework_batch_spring_batch_core
+    implementation library.jakarta_xml_bind_jakarta_xml_bind_api
+    implementation library.org_glassfish_jaxb_jaxb_runtime
+
+//    implementation 'org.springframework:spring-context:5.3.18'
+//    implementation 'org.springframework.data:spring-data:2.3.3.RELEASE'
+    implementation 'org.springframework.data:spring-data-redis:2.3.3.RELEASE'
+    implementation 'redis.clients:jedis:3.3.0'
+
+    testImplementation library.org_testcontainers_testcontainers
+    testImplementation library.org_testcontainers_junit_jupiter
+    testImplementation library.org_liquibase_liquibase_core
+}

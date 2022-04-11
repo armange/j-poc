@@ -1,6 +1,7 @@
 rootProject.name = 'j-poc'
 include(
     'spring-batch',
+    'spring-batch-cache-db',
     'spring-batch-manager-worker',
     'spring-batch-manager',
     'spring-batch-worker',
