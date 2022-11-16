@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet id="document_table" author="diego-costa" labels="0.0.1">
+        <createTable tableName="document">
+            <column name="id" type="numeric">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_document"/>
+            </column>
+
+            <column name="value" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="document_type_id" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="people_id" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addUniqueConstraint columnNames="value"
+                             constraintName="uk_document_value"
+                             disabled="false"
+                             tableName="document"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="document_type_id"
+                baseTableName="document"
+                constraintName="fk_document_document_type_id"
+                deferrable="false"
+                initiallyDeferred="false"
+                onDelete="RESTRICT"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="document_type"
+                validate="true"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="people_id"
+                baseTableName="document"
+                constraintName="fk_document_people_id"
+                deferrable="false"
+                initiallyDeferred="false"
+                onDelete="RESTRICT"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="people"
+                validate="true"/>
+    </changeSet>
+</databaseChangeLog>
