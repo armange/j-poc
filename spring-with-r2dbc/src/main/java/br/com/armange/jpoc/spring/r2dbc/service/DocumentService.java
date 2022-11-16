@@ -17,6 +17,8 @@ import reactor.core.scheduler.Schedulers;
 @RequiredArgsConstructor
 public class DocumentService {
 
+    //TODO: É necessário ter o cuidado de gerir os nomes dos campos para poder usa-los nos mapeamentos.
+    //TODO: É necessário construir as consultas(SQL) em função das relações.
     public static final String QUERY = "select " +
             "    d.id d_id, " +
             "    d.value d_value, " +
@@ -34,6 +36,7 @@ public class DocumentService {
     private final DocumentRepository documentRepository;
     private final DocumentTypeRepository documentTypeRepository;
 
+    //TODO: A anotação de transação é compatível com fluxo reativo.
     @Transactional
     public Mono<Document> save(final Document newDocument) {
 
@@ -42,6 +45,7 @@ public class DocumentService {
                 .subscribeOn(Schedulers.boundedElastic())
                 .flatMap(document -> Mono
                         .just(document)
+                        //TODO: É possível zipar resultados para configurar encadeamentos.
                         .zipWith(peopleRepository
                                 .save(newDocument.getPeople())
                                 .subscribeOn(Schedulers.boundedElastic())))

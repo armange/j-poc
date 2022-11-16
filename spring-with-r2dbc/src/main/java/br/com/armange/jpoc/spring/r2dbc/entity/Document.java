@@ -7,7 +7,6 @@ import org.springframework.data.annotation.PersistenceCreator;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.MappedCollection;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
@@ -15,6 +14,7 @@ import java.util.Map;
 @Data
 public class Document implements Persistable<Long> {
 
+    //TODO: A anotação ID sem a interface PERSISTABLE, faz com que o fluxo de persistência considere uma entidade com o atributo id preenchido, elegível apenas para UPDATE.
     @Id
     private Long id;
     private String value;
@@ -25,17 +25,15 @@ public class Document implements Persistable<Long> {
     @Column("people_id")
     private Long peopleId;
 
-    @Transient
-    @MappedCollection(idColumn = "document_type_id", keyColumn = "id")
+    //TODO: Não há opções de mapeamento dos relacionamentos.
     private DocumentType documentType;
 
-    @Transient
-    @MappedCollection(idColumn = "people_id", keyColumn = "id")
     private People people;
 
     @Transient
     private boolean newEntity = true;
 
+    //TODO: Se houverem atributos não presentes na tabela, será necessário indicar qual construtor vai gerar uma entidade, para que este contenha somente os atributos existentes na tabela.
     @Builder(builderMethodName = "builderWithColumnsOnly", buildMethodName = "buildWithColumnsOnly")
     @PersistenceCreator
     public Document(final Long id,
@@ -59,6 +57,7 @@ public class Document implements Persistable<Long> {
         this.people = people;
     }
 
+    //TODO: Todos so mapeamentos entre entidades devem ser construídos manualmente para que as consultas possam retornar um objeto corretamente relacionado.
     public static Document fromRowWithDocumentType(final Map<String, Object> row) {
         return Document
                 .builderWithRelations()
