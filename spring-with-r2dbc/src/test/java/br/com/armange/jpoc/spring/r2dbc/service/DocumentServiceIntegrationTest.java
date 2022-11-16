@@ -6,16 +6,19 @@ import br.com.armange.jpoc.spring.r2dbc.entity.People;
 import br.com.armange.jpoc.spring.r2dbc.repository.DocumentRepository;
 import br.com.armange.jpoc.spring.r2dbc.repository.DocumentTypeRepository;
 import br.com.armange.jpoc.spring.r2dbc.repository.PeopleRepository;
+import br.com.armange.jpoc.spring.r2dbc.tc.postgres.PostgresIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import reactor.test.StepVerifier;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-class DocumentServiceIntegrationTest {
+@ActiveProfiles("postgres")
+class DocumentServiceIntegrationTest extends PostgresIntegrationTest {
 
     @Autowired
     private DocumentService documentService;

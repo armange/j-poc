@@ -3,6 +3,7 @@ package br.com.armange.jpoc.spring.r2dbc.repository;
 import br.com.armange.jpoc.spring.r2dbc.entity.Document;
 import br.com.armange.jpoc.spring.r2dbc.entity.DocumentType;
 import br.com.armange.jpoc.spring.r2dbc.entity.People;
+import br.com.armange.jpoc.spring.r2dbc.tc.postgres.PostgresIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +15,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class DocumentRepositoryIntegrationTest {
+class DocumentRepositoryIntegrationTest extends PostgresIntegrationTest {
 
     @Autowired
     private PeopleRepository peopleRepository;

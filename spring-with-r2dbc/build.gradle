@@ -4,4 +4,6 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
+apply from: "$rootDir/gradle/$name/liquibase.gradle"
+
 version = projectVersion

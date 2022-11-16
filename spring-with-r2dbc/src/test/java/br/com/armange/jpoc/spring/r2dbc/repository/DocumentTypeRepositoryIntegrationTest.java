@@ -1,6 +1,7 @@
 package br.com.armange.jpoc.spring.r2dbc.repository;
 
 import br.com.armange.jpoc.spring.r2dbc.entity.DocumentType;
+import br.com.armange.jpoc.spring.r2dbc.tc.postgres.PostgresIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-class DocumentTypeRepositoryIntegrationTest {
+class DocumentTypeRepositoryIntegrationTest extends PostgresIntegrationTest {
 
     @Autowired
     private DocumentTypeRepository documentTypeRepository;

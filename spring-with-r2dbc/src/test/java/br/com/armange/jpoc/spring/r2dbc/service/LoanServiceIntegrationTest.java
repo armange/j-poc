@@ -1,6 +1,7 @@
 package br.com.armange.jpoc.spring.r2dbc.service;
 
 import br.com.armange.jpoc.spring.r2dbc.entity.Loan;
+import br.com.armange.jpoc.spring.r2dbc.tc.postgres.PostgresIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +11,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class LoanServiceIntegrationTest {
+class LoanServiceIntegrationTest extends PostgresIntegrationTest {
 
     @Autowired
     private LoanService loanService;

@@ -1,6 +1,7 @@
 package br.com.armange.jpoc.spring.r2dbc.service;
 
 import br.com.armange.jpoc.spring.r2dbc.entity.People;
+import br.com.armange.jpoc.spring.r2dbc.tc.postgres.PostgresIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +11,7 @@ import reactor.test.StepVerifier;
 import java.util.function.Predicate;
 
 @SpringBootTest
-class PeopleServiceIntegrationTest {
+class PeopleServiceIntegrationTest extends PostgresIntegrationTest {
 
     @Autowired
     private PeopleService peopleService;

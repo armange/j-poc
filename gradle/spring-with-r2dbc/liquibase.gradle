@@ -1,0 +1,27 @@
+liquibase {
+    activities {
+        def liquibaseLabelArgument = project.properties.get("liquibaseLabelArgument")
+
+        main {
+            changeLogFile '/src/main/resources/db/changelog/databaseChangelog.xml'
+            url 'jdbc:postgresql://localhost:5432/POC_RX2'
+            username 'postgres'
+            password 'postgres'
+
+            if (liquibaseLabelArgument != null) {
+                println 'Current label: ' + liquibaseLabelArgument
+
+                labels liquibaseLabelArgument
+            }
+        }
+    }
+}
+
+tasks.all { task ->
+    if (task.name.startsWith("dropAll")) {
+        /************************************************************
+         ** The dropAll task has been disabled to avoid accidents. **
+         ************************************************************/
+        task.enabled = true
+    }
+}

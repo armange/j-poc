@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet id="insert-data-as-sample" author="diego-costa" labels="0.0.1">
+        <insert tableName="book">
+            <column  name="id"  value="1"/>
+            <column  name="name"  value="Clean Code"/>
+        </insert>
+        <insert tableName="book">
+            <column  name="id"  value="2"/>
+            <column  name="name"  value="Phyton"/>
+        </insert>
+        <insert tableName="book">
+            <column  name="id"  value="3"/>
+            <column  name="name"  value="Java"/>
+        </insert>
+        <insert tableName="book">
+            <column  name="id"  value="4"/>
+            <column  name="name"  value="Javascript"/>
+        </insert>
+
+
+        <insert tableName="people">
+            <column  name="id"  value="1"/>
+            <column  name="name"  value="People 1"/>
+        </insert>
+        <insert tableName="people">
+            <column  name="id"  value="2"/>
+            <column  name="name"  value="People 2"/>
+        </insert>
+        <insert tableName="people">
+            <column  name="id"  value="3"/>
+            <column  name="name"  value="People 3"/>
+        </insert>
+
+
+        <insert tableName="document_type">
+            <column  name="id"  value="1"/>
+            <column  name="name"  value="CPF"/>
+        </insert>
+        <insert tableName="document_type">
+            <column  name="id"  value="2"/>
+            <column  name="name"  value="RG"/>
+        </insert>
+
+
+        <insert tableName="document">
+            <column  name="id"  value="1"/>
+            <column  name="value"  value="123456789"/>
+            <column  name="document_type_id"  value="2"/>
+            <column  name="people_id"  value="1"/>
+        </insert>
+        <insert tableName="document">
+            <column  name="id"  value="2"/>
+            <column  name="value"  value="987654321"/>
+            <column  name="document_type_id"  value="2"/>
+            <column  name="people_id"  value="2"/>
+        </insert>
+
+
+        <insert tableName="loan">
+            <column  name="book_id"  value="1"/>
+            <column  name="people_id"  value="1"/>
+        </insert>
+        <insert tableName="loan">
+            <column  name="book_id"  value="2"/>
+            <column  name="people_id"  value="1"/>
+        </insert>
+        <insert tableName="loan">
+            <column  name="book_id"  value="1"/>
+            <column  name="people_id"  value="2"/>
+        </insert>
+        <insert tableName="loan">
+            <column  name="book_id"  value="1"/>
+            <column  name="people_id"  value="3"/>
+        </insert>
+        <insert tableName="loan">
+            <column  name="book_id"  value="2"/>
+            <column  name="people_id"  value="3"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
