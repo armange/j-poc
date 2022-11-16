@@ -1,7 +1,7 @@
 dependencies {
-    implementation library.org_slf4j_slf4j_api
-    implementation library.org_slf4j_slf4j_simple
-//    implementation 'ch.qos.logback:logback-classic:1.2.3'
+//    implementation library.org_slf4j_slf4j_api
+//    implementation library.org_slf4j_slf4j_simple
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
 
     testImplementation library.org_junit_jupiter_junit_jupiter_api
     testImplementation library.org_junit_jupiter_junit_jupiter_engine

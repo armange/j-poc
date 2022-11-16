@@ -5,3 +5,5 @@ include(
     'spring-batch-manager',
     'spring-batch-worker',
 )
+include 'spring-with-r2dbc'
+
