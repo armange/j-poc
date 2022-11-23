@@ -1,9 +1,18 @@
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   liquibase:
     url: jdbc:postgresql://localhost:5432/POC_RX2
     user: postgres
     password: postgres
     change-log: classpath:/db/changelog/databaseChangelog.xml
+    contexts: test
     enabled: true
   datasource:
     url: jdbc:postgresql://localhost:5432/POC_RX2
