@@ -1,9 +1,6 @@
 package br.com.armange.jpoc.spring.jdbc.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +15,11 @@ public class People {
 
     private String name;
 
+    @Builder.Default
+    @ToString.Exclude
     private List<Loan> loans = new ArrayList<>();
 
+    @Builder.Default
+    @ToString.Exclude
     private List<Document> documents = new ArrayList<>();
 }

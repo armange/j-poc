@@ -19,8 +19,8 @@ public class PeopleService {
     public Mono<People> findFetchDocumentsById(final Long peopleId) {
         return Mono.defer(() -> Mono.just(
                         Objects.requireNonNull(jdbcTemplate.query(
-                                String.format(PeopleMapper.QUERY_PEOPLE_WITH_LOAN_AND_DOCUMENTS, peopleId),
-                                PeopleMapper.PEOPLE_WITH_DOCUMENTS_RS_EXTRACTOR))))
+                                PeopleMapper.QUERY_PEOPLE_WITH_LOAN_AND_DOCUMENTS,
+                                PeopleMapper.PEOPLE_WITH_DOCUMENTS_RS_EXTRACTOR, peopleId))))
                 .subscribeOn(Schedulers.boundedElastic());
     }
 }

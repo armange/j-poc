@@ -1,0 +1,22 @@
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation "org.liquibase:liquibase-core:${liquibaseCoreVersion}"
+    implementation "org.liquibase:liquibase-groovy-dsl:${liquibaseGroovyVersion}"
+
+    runtimeOnly 'org.postgresql:postgresql'
+
+    liquibaseRuntime "org.liquibase:liquibase-core:${liquibaseCoreVersion}"
+    liquibaseRuntime "org.liquibase:liquibase-groovy-dsl:${liquibaseGroovyVersion}"
+    liquibaseRuntime 'org.postgresql:postgresql'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+
+    testRuntimeOnly 'org.postgresql:postgresql'
+    testRuntimeOnly "org.liquibase:liquibase-core:${liquibaseCoreVersion}"
+    testRuntimeOnly "org.liquibase:liquibase-groovy-dsl:${liquibaseGroovyVersion}"
+
+    testFixturesApi library.org_testcontainers_testcontainers
+    testFixturesApi library.org_testcontainers_junit_jupiter
+}

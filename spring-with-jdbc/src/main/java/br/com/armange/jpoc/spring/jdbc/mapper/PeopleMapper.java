@@ -29,7 +29,7 @@ public final class PeopleMapper {
             "inner join book b on b.id = l.book_id " +
             "inner join document d on d.people_id = p.id " +
             "inner join document_type dt on dt.id = d.document_type_id " +
-            "where p.id = %d";
+            "where p.id = ?";
 
     public static final ResultSetExtractor<People> PEOPLE_WITH_DOCUMENTS_RS_EXTRACTOR = rs -> {
         final Map<Long, People> peopleMap = new HashMap<>();
@@ -84,7 +84,7 @@ public final class PeopleMapper {
                                          final Map<Long, DocumentType> documentTypeMap,
                                          final Document document) throws SQLException {
         final Long documentTypeId = rs.getLong("dt_id");
-        final DocumentType documentType = documentTypeMap.get(documentTypeId);
+        final DocumentType documentType = documentTypeMap.getOrDefault(documentTypeId, DocumentType.builder().build());
 
         if (documentType.getId() == null) {
             documentType.setId(documentTypeId);
