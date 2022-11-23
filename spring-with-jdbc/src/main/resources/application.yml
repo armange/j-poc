@@ -1,18 +1,15 @@
 spring:
-  r2dbc:
-    url: r2dbc:postgresql://localhost:5432/POC_RX2
-    username: postgres
-    password: postgres
-  data:
-    r2dbc:
-      repositories:
-        enabled: true
   liquibase:
     url: jdbc:postgresql://localhost:5432/POC_RX2
     user: postgres
     password: postgres
     change-log: classpath:/db/changelog/databaseChangelog.xml
     enabled: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test-db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
   sql:
     init:
       platform: postgresql

@@ -14,11 +14,6 @@ spring:
     change-log: classpath:/db/changelog/databaseChangelog.xml
     contexts: test
     enabled: true
-  datasource:
-    url: jdbc:postgresql://localhost:5432/test-db
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
   sql:
     init:
       platform: postgresql
