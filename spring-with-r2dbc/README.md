@@ -9,3 +9,8 @@
 - Relations on persistence(simulated cascade)
 - Persistence
 - Chaining
+
+## Reference
+
+- https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#r2dbc
+- https://www.baeldung.com/spring-data-r2dbc
