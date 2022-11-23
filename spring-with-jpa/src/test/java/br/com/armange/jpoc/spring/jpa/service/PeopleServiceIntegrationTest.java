@@ -17,7 +17,17 @@ class PeopleServiceIntegrationTest extends PostgresIntegrationTest {
     private PeopleService peopleService;
 
     @Test
-    void shouldFetchDocuments() {
+    void shouldFetchDocumentsWithGraph() {
+        final Mono<People> peopleMono = peopleService.findWithDocumentsById(1L);
+
+        StepVerifier
+                .create(peopleMono.log())
+                .expectNextMatches(assertPeopleWithDocuments())
+                .verifyComplete();
+    }
+
+    @Test
+    void shouldFetchDocumentsWithQuery() {
         final Mono<People> peopleMono = peopleService.findFetchDocumentsById(1L);
 
         StepVerifier

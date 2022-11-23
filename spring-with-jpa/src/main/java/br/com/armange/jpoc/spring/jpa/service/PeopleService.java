@@ -7,13 +7,16 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
-import java.util.Objects;
-
 @Service
 @RequiredArgsConstructor
 public class PeopleService {
 
     private final PeopleRepository peopleRepository;
+
+    public Mono<People> findWithDocumentsById(final Long peopleId) {
+        return Mono.defer(() -> Mono.just(peopleRepository.findWithDocumentsById(peopleId)))
+                .subscribeOn(Schedulers.boundedElastic());
+    }
 
     public Mono<People> findFetchDocumentsById(final Long peopleId) {
         return Mono.defer(() -> Mono.just(peopleRepository.findFetchDocumentsById(peopleId)))
