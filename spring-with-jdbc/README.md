@@ -4,7 +4,8 @@
 
 ## Main implementations
 
-- Relations on query
+- Relations on query with `EntityGraph` annotation
+- Relations on query with `Query` annotation
 
 ## Reference
 
