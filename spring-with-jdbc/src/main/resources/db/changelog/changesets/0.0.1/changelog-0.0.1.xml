@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <include file="changelog-create-book-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog-create-people-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog-create-document_type-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog-create-document-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog-create-loan-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog-insert-data-as-sample.xml" relativeToChangelogFile="true"/>
+    <changeSet author="liquibase-docs" id="tagDatabase-example" labels="0.0.1">
+        <tagDatabase tag="0.0.1"/>
+    </changeSet>
+</databaseChangeLog>

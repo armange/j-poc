@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet id="loan_table" author="diego-costa" labels="0.0.1">
+        <createTable tableName="loan">
+            <column name="people_id" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="book_id" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="people_id, book_id"
+                       constraintName="pk_loan"
+                       tableName="loan"
+                       validate="true"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="people_id"
+                baseTableName="loan"
+                constraintName="fk_loan_people_id"
+                deferrable="false"
+                initiallyDeferred="false"
+                onDelete="RESTRICT"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="people"
+                validate="true"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="book_id"
+                baseTableName="loan"
+                constraintName="fk_loan_book_id"
+                deferrable="false"
+                initiallyDeferred="false"
+                onDelete="RESTRICT"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="book"
+                validate="true"/>
+    </changeSet>
+</databaseChangeLog>
