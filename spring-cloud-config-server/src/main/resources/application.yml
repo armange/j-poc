@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active: mongo-backend
+  cloud:
+    config:
+      server:
+        jdbc:
+          defaultLabel: master
+          sql: SELECT PROP_KEY, VALUE from PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
+  datasource:
+    url: jdbc:postgresql://localhost:5432/services_configurations?useSSL=false
+    hikari:
+      connection-timeout: 5000
+      maximum-pool-size: 10
+      driver-class-name: org.postgresql.Driver
+      username: postgres
+      password: postgres
+  jpa:
+    show-sql: true
+  data:
+    mongodb:
+      uri: "mongodb://root:example@localhost:27017/admin"
+
+server:
+  port: 9090

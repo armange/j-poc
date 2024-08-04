@@ -23,4 +23,8 @@ dependencies {
 
     testFixturesApi library.org_testcontainers_testcontainers
     testFixturesApi library.org_testcontainers_junit_jupiter
+
+
+    implementation 'net.sourceforge.tess4j:tess4j:4.5.5'
+    implementation 'org.openpnp:opencv:4.5.1-2'
 }

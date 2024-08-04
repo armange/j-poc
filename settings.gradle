@@ -8,4 +8,6 @@ include(
 include 'spring-with-r2dbc'
 include 'spring-with-jdbc'
 include 'spring-with-jpa'
+include 'spring-cloud-config-server'
+include 'spring-cloud-config-client'
 

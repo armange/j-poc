@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: app-one
+  config:
+    import: "optional:configserver:http://localhost:9090"
+  cloud:
+    config:
+      label: local
+#      uri: http://localhost:8080
+example:
+  config-one: one
+#  config-two: two
+  config-three: ${CONFIG_THREE:three}
